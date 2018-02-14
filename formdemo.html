@@ -18,7 +18,7 @@
       <div class="mui-panel">
     
     <form name="frm" ng-submit="userSubmit()" class="mui-form" ng-show="!submitted">
-	 <legend>Beyond Portal Signup</legend>
+	 <legend>Beyond Portal Signup {{fibSequence}}</legend>
 		<div class="mui-textfield">
 			<label for="">Firstname</label>
 			<input type="text" name="email" ng-model="user.name" placeholder="John" required />
@@ -41,6 +41,8 @@
 			<input type="email" name="email2" ng-model="user.email2" required />
 			<span ng-show="frm.email2.$dirty && frm.email2.$error.required">Required field</span>
 			<span ng-show="frm.email2.$dirty && frm.email2.$error.email">Not a valid email</span>
+			<span ng-show="frm.email2.$dirty && frm.email.value != frm.email2.value">Email must match</span>
+
 		</div>	
 	
 
@@ -49,16 +51,37 @@
 			<input type="text" name="gender" ng-model="user.gender" placeholder="F" />
 		</div>	
 
+
 		<div class="mui-textfield">
-			<label for="">Country</label>
-			<input type="text" name="country" ng-model="user.country" placeholder="United States" />
+			<label for="">Country </label>
+			<select name="country" ng-model="user.country">
+				<option value="">Select Country</option>
+				<option value="USA">United States</option>
+				<option value="UK">United Kingdom</option>
+				<option value="Ireland">Ireland</option>
+			</select>
 		</div>	
 
 
 		<div class="mui-textfield">
 			<label for="">Date of Birth</label>
-			<input type="text" name="dob" ng-model="user.dob" placeholder="June 2, 1988" />
+			<!--input type="text" name="dob" ng-model="user.dob" placeholder="June 2, 1988" /-->
 		</div>	
+		<div class="mui-textfield">
+			<label for="">Month</label>
+			<input type="text" name="Month" ng-model="user.month" ng-maxlength="2" placeholder="8" length="2" />
+		</div>
+		<div class="mui-textfield">
+			<label for="">Day</label>
+			<input type="text" name="Month" ng-model="user.day" ng-maxlength="2" placeholder="25" />
+		</div>
+		<div class="mui-textfield">
+			<label for="">Year</label>
+			<input type="text" name="Month" ng-model="user.year" ng-maxlength="4" placeholder="1980" />
+		</div>	
+		<div class="mui-textfield">
+		</div>	
+
 
 		<div class="mui-textfield">
 			<label for="">Company Name</label>
@@ -72,7 +95,8 @@
 
 
 		<div class="mui-textfield">
-			<textarea placeholder="About me..."></textarea>
+			<textarea name="aboutme" placeholder="About me..." ng-model="user.aboutme" ng-maxlength="255"></textarea>
+			 <span ng-show="frm.aboutme.$dirty && frm.aboutme.$error.maxlength">Too long</span>
 		</div>
 
 		<div class="mui-checkbox">
@@ -104,6 +128,7 @@
  </div>
 </div> <!--container-->
 
+
   
     <div class="mui-container" ng-show="submitted">
       	<div class="mui-panel" >
@@ -120,28 +145,50 @@
     <link href="http://cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="http://cdn.muicss.com/mui-0.9.36/angular/mui-angular.min.js"></script>
 
-	<link href="//cdn.muicss.com/mui-0.9.36/extra/mui-colors.css" rel="stylesheet" type="text/css" />
-	<link href="//cdn.muicss.com/mui-0.9.36/extra/mui-colors.min.css" rel="stylesheet" type="text/css" />
+	<link href="http://cdn.muicss.com/mui-0.9.36/extra/mui-colors.css" rel="stylesheet" type="text/css" />
+	<link href="http://cdn.muicss.com/mui-0.9.36/extra/mui-colors.min.css" rel="stylesheet" type="text/css" />
 
  
 	<script>
+		// Sample Fibonnaci numbers 
+		function Fibonacci()
+			{
+				this.looping = function(num) {
+					var a = 1, b = 1, fib = 1;
+					for (var i = 2; i <= num; i++) {
+						fib = a + b;
+						a = b;
+						b = fib;
+					}
+					return fib;
+				}
+			}
 
+			var fib = new Fibonacci();
+	 		var fibSequence = "";
+	 		for (var i = 0; i <= 10; i++) {
+	 			fibSequence += fib.looping(i) + " ";
+			}
+	 		console.log(fibSequence);
+
+	
 	angular.module('app', []);
 
 	angular.module('app').controller('appTable', AppTable);
 
+
 	function AppTable($scope) {
 
-	  	//$scope.sortColumn = "name";
-
-
-		$scope.userSubmit = function(){
+	  	$scope.userSubmit = function(){
 	 		
 	 		$scope.submitted = true;
-	 		//alert(JSON.stringify($scope.user));
+	 		alert(JSON.stringify($scope.user));
 		}
 
 	}
+
+
+
 
 	</script>
 	</body>
