@@ -41,7 +41,7 @@
 			<input type="email" name="email2" ng-model="user.email2" required />
 			<span ng-show="frm.email2.$dirty && frm.email2.$error.required">Required field</span>
 			<span ng-show="frm.email2.$dirty && frm.email2.$error.email">Not a valid email</span>
-			<span ng-show="frm.email2.$dirty && frm.email.value != frm.email2.value">Email must match</span>
+			<span ng-show="frm.email2.$dirty && !frm.email2.$error.email && user.email != user.email2">Repeat email is different</span>
 
 		</div>	
 	
@@ -101,8 +101,8 @@
 
 		<div class="mui-checkbox">
     		<label>
-      		<input type="checkbox" name="newsletter" ng-model="user.newsletter" value="true" checked>
-      			Newsletter opt in
+      		<input type="checkbox" ng-model="string" name="newsletter" ng-model="user.newsletter" value="true" checked>
+      			Newsletter Opt in
     		</label>
   		</div>
 
