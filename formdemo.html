@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+		<meta charset="UTF-8">
+		<title>Form Demo</title>
+		<style>
+		.ng-invalid.ng-dirty{borer:1px solid red;}
+		</style>
+   
+</head>
+<body>
+
+<div ng-app='app'>
+
+ <div ng-controller='appTable'>
+ 
+ <div class="mui-container">
+      <div class="mui-panel">
+    
+    <form name="frm" ng-submit="userSubmit()" class="mui-form" ng-show="!submitted">
+	 <legend>Beyond Portal Signup</legend>
+		<div class="mui-textfield">
+			<label for="">Firstname</label>
+			<input type="text" name="email" ng-model="user.name" placeholder="John" required />
+			<span ng-show="frm.name.$dirty && frm.name.$error.required">Required field</span>
+		</div>	
+		<div class="mui-textfield">
+			<label for="">Surname</label>
+			<input type="text" name="email" ng-model="user.surname" placeholder="Doe" required />
+			<span ng-show="frm.surname.$dirty && frm.surname.$error.required">Required field</span>
+		</div>	
+	
+		<div class="mui-textfield">
+			<label for="">Email</label>
+			<input type="email" name="email" ng-model="user.email" required />
+			<span ng-show="frm.email.$dirty && frm.email.$error.required">Required field</span>
+			<span ng-show="frm.email.$dirty && frm.email.$error.email">Not a valid email</span>
+		</div>	
+		<div class="mui-textfield">
+			<label for="">Repeat Email</label>
+			<input type="email" name="email2" ng-model="user.email2" required />
+			<span ng-show="frm.email2.$dirty && frm.email2.$error.required">Required field</span>
+			<span ng-show="frm.email2.$dirty && frm.email2.$error.email">Not a valid email</span>
+		</div>	
+	
+
+		<div class="mui-textfield">
+			<label for="">Gender</label>
+			<input type="text" name="gender" ng-model="user.gender" placeholder="F" />
+		</div>	
+
+		<div class="mui-textfield">
+			<label for="">Country</label>
+			<input type="text" name="country" ng-model="user.country" placeholder="United States" />
+		</div>	
+
+
+		<div class="mui-textfield">
+			<label for="">Date of Birth</label>
+			<input type="text" name="dob" ng-model="user.dob" placeholder="June 2, 1988" />
+		</div>	
+
+		<div class="mui-textfield">
+			<label for="">Company Name</label>
+			<input type="text" name="company" ng-model="user.company" placeholder="ABC, INC" />
+		</div>	
+
+		<div class="mui-textfield">
+			<label for="">Industry</label>
+			<input type="text" name="industry" ng-model="user.industry" placeholder="Technology" />
+		</div>	
+
+
+		<div class="mui-textfield">
+			<textarea placeholder="About me..."></textarea>
+		</div>
+
+		<div class="mui-checkbox">
+    		<label>
+      		<input type="checkbox" name="newsletter" ng-model="user.newsletter" value="true" checked>
+      			Newsletter opt in
+    		</label>
+  		</div>
+
+		<div class="mui-checkbox">
+    		<label>
+      		<input type="checkbox" name="privacy" ng-model="user.privacy" value="true">
+      			Privacy Opt In
+    		</label>
+  		</div>
+
+		<div class="mui-checkbox">
+    		<label>
+      		<input type="checkbox" name="terms" ng-model="user.terms" value="true">
+      			Agree to terms and conditions
+    		</label>
+  		</div>
+
+		<button ng-disabled="frm.$invalid" class="mui-btn mui-btn--primary mui-btn--raised">Submit</button>
+	
+
+	</form>
+
+ </div>
+</div> <!--container-->
+
+  
+    <div class="mui-container" ng-show="submitted">
+      	<div class="mui-panel" >
+        	<h1>Thanks {{user.name}}</h1>
+		</div>
+  	</div>
+
+</div>
+
+  	<!-- load Angular -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+ 
+    <!-- load MUI -->
+    <link href="http://cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdn.muicss.com/mui-0.9.36/angular/mui-angular.min.js"></script>
+
+	<link href="//cdn.muicss.com/mui-0.9.36/extra/mui-colors.css" rel="stylesheet" type="text/css" />
+	<link href="//cdn.muicss.com/mui-0.9.36/extra/mui-colors.min.css" rel="stylesheet" type="text/css" />
+
+ 
+	<script>
+
+	angular.module('app', []);
+
+	angular.module('app').controller('appTable', AppTable);
+
+	function AppTable($scope) {
+
+	  	//$scope.sortColumn = "name";
+
+
+		$scope.userSubmit = function(){
+	 		
+	 		$scope.submitted = true;
+	 		//alert(JSON.stringify($scope.user));
+		}
+
+	}
+
+	</script>
+	</body>
+	</html>
+
