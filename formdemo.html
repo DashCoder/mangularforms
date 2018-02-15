@@ -48,7 +48,9 @@
 
 		<div class="mui-textfield">
 			<label for="">Gender</label>
-			<input type="text" name="gender" ng-model="user.gender" placeholder="F" />
+			<input type="text" name="gender" ng-model="user.gender" placeholder="F" ng-maxlength="1" />
+			<span ng-show="frm.email2.$dirty && user.gender!='M' && user.gender!='F' && user.gender!='O'">Please enter F, M or O(ther)</span>
+
 		</div>	
 
 
@@ -69,15 +71,21 @@
 		</div>	
 		<div class="mui-textfield">
 			<label for="">Month</label>
-			<input type="text" name="Month" ng-model="user.month" ng-maxlength="2" placeholder="8" length="2" />
+			<input type="number" min="1" max="12" ngMax="12" name="month" ng-model="user.month" ng-maxlength="2" placeholder="8" length="2" required />
+			<span ng-show="frm.month.$dirty && frm.month.$error.required">Required field</span>
+			<span ng-show="frm.month.$dirty && frm.month.$error.number">Not a valid number</span>
 		</div>
 		<div class="mui-textfield">
 			<label for="">Day</label>
-			<input type="text" name="Month" ng-model="user.day" ng-maxlength="2" placeholder="25" />
+			<input type="number" min="1" max="31" name="day" ng-model="user.day" ng-maxlength="2" placeholder="25" required />
+			<span ng-show="frm.day.$dirty && frm.day.$error.required">Required field</span>
+			<span ng-show="frm.day.$dirty && frm.day.$error.number">Not a valid number</span>
 		</div>
 		<div class="mui-textfield">
 			<label for="">Year</label>
-			<input type="text" name="Month" ng-model="user.year" ng-maxlength="4" placeholder="1980" />
+			<input type="number" min="1" max="2200" name="year" ng-model="user.year" ng-maxlength="4" placeholder="1980" required />
+			<span ng-show="frm.year.$dirty && frm.year.$error.required">Required field</span>
+			<span ng-show="frm.year.$dirty && frm.year.$error.number">Not a valid number</span>
 		</div>	
 		<div class="mui-textfield">
 		</div>	
@@ -133,6 +141,10 @@
     <div class="mui-container" ng-show="submitted">
       	<div class="mui-panel" >
         	<h1>Thanks {{user.name}}</h1>
+
+        	<h3>Below are Fibonacci numbers </h3>
+        	{{fibSequence}}
+
 		</div>
   	</div>
 
@@ -164,12 +176,6 @@
 				}
 			}
 
-			var fib = new Fibonacci();
-	 		var fibSequence = "";
-	 		for (var i = 0; i <= 10; i++) {
-	 			fibSequence += fib.looping(i) + " ";
-			}
-	 		console.log(fibSequence);
 
 	
 	angular.module('app', []);
@@ -182,6 +188,15 @@
 	  	$scope.userSubmit = function(){
 	 		
 	 		$scope.submitted = true;
+
+	 		var fib = new Fibonacci();
+	 		var fibSequence = "";
+	 		for (var i = 0; i <= 10; i++) {
+	 			fibSequence += fib.looping(i) + " ";
+			}
+	 		console.log(fibSequence);
+	 		$scope.fibSequence = fibSequence;
+
 	 		alert(JSON.stringify($scope.user));
 		}
 
