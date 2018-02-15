@@ -4,7 +4,8 @@
 		<meta charset="UTF-8">
 		<title>Form Demo</title>
 		<style>
-		.ng-invalid.ng-dirty{borer:1px solid red;}
+		.ng-invalid.ng-dirty{color: red;}
+		.ng-required.ng-dirty{color: red;}
 		</style>
    
 </head>
@@ -58,10 +59,15 @@
 			<label for="">Country </label>
 			<select name="country" ng-model="user.country">
 				<option value="">Select Country</option>
+				<option ng:repeat="country in chooseCountries" value="{{country.name}}">{{country.name}}</option>
+			</select>  
+
+			<!--select name="country" ng-model="user.country">
+				<option value="">Select Country</option>
 				<option value="USA">United States</option>
 				<option value="UK">United Kingdom</option>
 				<option value="Ireland">Ireland</option>
-			</select>
+			</select-->
 		</div>	
 
 
@@ -123,10 +129,11 @@
 
 		<div class="mui-checkbox">
     		<label>
-      		<input type="checkbox" name="terms" ng-model="user.terms" value="true">
+      		<input type="checkbox" name="terms" ng-model="user.terms" value="true" required>
       			Agree to terms and conditions
     		</label>
-  		</div>
+  			<span ng-show="frm.terms.$error.required">(Required field)</span>
+		</div>
 
 		<button ng-disabled="frm.$invalid" class="mui-btn mui-btn--primary mui-btn--raised">Submit</button>
 	
@@ -184,6 +191,16 @@
 
 
 	function AppTable($scope) {
+
+
+    $scope.chooseCountries=[
+        {countryId : 1, name : "United States"},
+        {countryId : 2, name : "United Kingdom"},
+        {countryId : 3, name : "Other"}
+    ];
+
+    //$scope.user.country = angular.copy($scope.chooseCountries[0]);
+
 
 	  	$scope.userSubmit = function(){
 	 		
