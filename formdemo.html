@@ -15,19 +15,19 @@
 
  <div ng-controller='appTable'>
  
- <div class="mui-container">
+ <div class="mui-container" ng-show="!submitted">
       <div class="mui-panel">
     
     <form name="frm" ng-submit="userSubmit()" class="mui-form" ng-show="!submitted">
-	 <legend>Beyond Portal Signup {{fibSequence}}</legend>
+	 <legend>Beyond Portal Signup</legend>
 		<div class="mui-textfield">
 			<label for="">Firstname</label>
-			<input type="text" name="email" ng-model="user.name" placeholder="John" required />
+			<input type="text" name="name" ng-model="user.name" placeholder="John" required />
 			<span ng-show="frm.name.$dirty && frm.name.$error.required">Required field</span>
 		</div>	
 		<div class="mui-textfield">
 			<label for="">Surname</label>
-			<input type="text" name="email" ng-model="user.surname" placeholder="Doe" required />
+			<input type="text" name="surname" ng-model="user.surname" placeholder="Doe" required />
 			<span ng-show="frm.surname.$dirty && frm.surname.$error.required">Required field</span>
 		</div>	
 	
@@ -62,18 +62,11 @@
 				<option ng:repeat="country in chooseCountries" value="{{country.name}}">{{country.name}}</option>
 			</select>  
 
-			<!--select name="country" ng-model="user.country">
-				<option value="">Select Country</option>
-				<option value="USA">United States</option>
-				<option value="UK">United Kingdom</option>
-				<option value="Ireland">Ireland</option>
-			</select-->
 		</div>	
 
 
 		<div class="mui-textfield">
 			<label for="">Date of Birth</label>
-			<!--input type="text" name="dob" ng-model="user.dob" placeholder="June 2, 1988" /-->
 		</div>	
 		<div class="mui-textfield">
 			<label for="">Month</label>
@@ -149,13 +142,39 @@
       	<div class="mui-panel" >
         	<h1>Thanks {{user.name}}</h1>
 
-        	<h3>Below are Fibonacci numbers </h3>
-        	{{fibSequence}}
-
 		</div>
   	</div>
 
-</div>
+
+
+
+    <div class="mui-container" ng-show="submitted">
+      <div class="mui-panel">
+        <h1>Tickets</h1>
+
+		   <table class="mui-table">
+		   	<thead>
+		   		<th>CaseID</th>
+		   		<th>Name</th>
+		   		<th>Surname</th>
+		   		<th>Gender</th>
+		   	</thead>
+		      <tbody>
+		        <tr ng-repeat="item in rows">
+		         <td>{{item.fibsequence}}</td>
+		         <td>{{item.name}}</td>
+		         <td>{{item.surname}}</td>
+		         <td>{{item.gender}}</td>
+		        </tr>
+		      </tbody>
+		    </table>
+		
+    	
+    	</div>
+  	</div>
+
+
+  	</div> <!-- controller -->
 
   	<!-- load Angular -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
@@ -191,17 +210,15 @@
 
 
 	function AppTable($scope) {
+		$scope.rows = [];
 
+	    $scope.chooseCountries=[
+	        {countryId : 1, name : "United States"},
+	        {countryId : 2, name : "United Kingdom"},
+	        {countryId : 3, name : "Other"}
+	    ];
 
-    $scope.chooseCountries=[
-        {countryId : 1, name : "United States"},
-        {countryId : 2, name : "United Kingdom"},
-        {countryId : 3, name : "Other"}
-    ];
-
-    //$scope.user.country = angular.copy($scope.chooseCountries[0]);
-
-
+    
 	  	$scope.userSubmit = function(){
 	 		
 	 		$scope.submitted = true;
@@ -209,17 +226,22 @@
 	 		var fib = new Fibonacci();
 	 		var fibSequence = "";
 	 		for (var i = 0; i <= 10; i++) {
-	 			fibSequence += fib.looping(i) + " ";
+	 			fibSequence += fib.looping(i) + "";
 			}
 	 		console.log(fibSequence);
 	 		$scope.fibSequence = fibSequence;
 
-	 		alert(JSON.stringify($scope.user));
+	 		$scope.rows.push({
+                fibsequence: fibSequence,
+                name: $scope.user.name,
+                surname: $scope.user.surname,
+                gender: $scope.user.gender
+            });
+
+	 		//alert("Rows: " + JSON.stringify($scope.rows));
 		}
 
 	}
-
-
 
 
 	</script>
